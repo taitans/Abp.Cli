@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk">
+    <PropertyGroup>
+        <OutputType>Exe</OutputType>
+        <TargetFramework>netcoreapp3.0</TargetFramework>
+        <PackAsTool>true</PackAsTool>
+        <ToolCommandName>Tbp</ToolCommandName>
+        <PackageOutputPath>./nupkg</PackageOutputPath>
+    </PropertyGroup>
+    <ItemGroup>
+        <Folder Include="Taitans\" />
+        <Folder Include="Taitans\Abp\" />
+        <Folder Include="Taitans\Abp\Cli\" />
+    </ItemGroup>
+    <ItemGroup>
+        <PackageReference Include="NETStandard.Library" Version="2.0.3" />
+        <PackageReference Include="Serilog.Extensions.Logging" Version="3.0.1" />
+        <PackageReference Include="Serilog.Sinks.File" Version="4.1.0" />
+        <PackageReference Include="Serilog.Sinks.Console" Version="3.1.1" />
+        <PackageReference Include="Volo.Abp.Autofac" Version="1.0.2" />
+        <PackageReference Include="Volo.Abp.Core" Version="1.0.2" />
+    </ItemGroup>
+    <ItemGroup>
+      <ProjectReference Include="..\Taitans.Abp.Cli.Core\Taitans.Abp.Cli.Core.csproj" />
+    </ItemGroup>
+</Project>

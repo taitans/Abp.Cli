@@ -1,0 +1,23 @@
+
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Taitans.Abp.Cli", "Taitans.Abp.Cli\Taitans.Abp.Cli.csproj", "{2A698FE1-9227-4C25-9593-8121EBF8467E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Taitans.Abp.Cli.Core", "Taitans.Abp.Cli.Core\Taitans.Abp.Cli.Core.csproj", "{B5A86350-ECE4-41FC-9A37-7CF135717686}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2A698FE1-9227-4C25-9593-8121EBF8467E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2A698FE1-9227-4C25-9593-8121EBF8467E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2A698FE1-9227-4C25-9593-8121EBF8467E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2A698FE1-9227-4C25-9593-8121EBF8467E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B5A86350-ECE4-41FC-9A37-7CF135717686}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B5A86350-ECE4-41FC-9A37-7CF135717686}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B5A86350-ECE4-41FC-9A37-7CF135717686}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B5A86350-ECE4-41FC-9A37-7CF135717686}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
