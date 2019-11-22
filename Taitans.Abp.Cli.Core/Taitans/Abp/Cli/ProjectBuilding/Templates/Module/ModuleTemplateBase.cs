@@ -16,7 +16,7 @@ namespace Taitans.Abp.Cli.ProjectBuilding.Templates.Module
         {
             var steps = new List<ProjectBuildPipelineStep>();
 
-            DeleteUnrelatedProjects(context, steps);
+            DeleteUnrelatedProjects(context, steps); // 
             RandomizeSslPorts(context, steps);
             CleanupFolderHierarchy(context, steps);
 

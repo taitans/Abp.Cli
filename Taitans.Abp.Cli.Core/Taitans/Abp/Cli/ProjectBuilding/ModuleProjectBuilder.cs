@@ -5,7 +5,6 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using Taitans.Abp.Cli.Commands;
-using Taitans.Abp.Cli.Licensing;
 using Taitans.Abp.Cli.ProjectBuilding.Analyticses;
 using Taitans.Abp.Cli.ProjectBuilding.Building;
 using Volo.Abp.DependencyInjection;
@@ -22,21 +21,18 @@ namespace Taitans.Abp.Cli.ProjectBuilding
         protected ICliAnalyticsCollect CliAnalyticsCollect { get; }
         protected AbpCliOptions Options { get; }
         protected IJsonSerializer JsonSerializer { get; }
-        protected IApiKeyService ApiKeyService { get; }
 
         public ModuleProjectBuilder(ISourceCodeStore sourceCodeStore,
             IModuleInfoProvider moduleInfoProvider,
             ICliAnalyticsCollect cliAnalyticsCollect,
             IOptions<AbpCliOptions> options,
-            IJsonSerializer jsonSerializer,
-            IApiKeyService apiKeyService)
+            IJsonSerializer jsonSerializer)
         {
             SourceCodeStore = sourceCodeStore;
             ModuleInfoProvider = moduleInfoProvider;
             CliAnalyticsCollect = cliAnalyticsCollect;
             Options = options.Value;
             JsonSerializer = jsonSerializer;
-            ApiKeyService = apiKeyService;
 
             Logger = NullLogger<ModuleProjectBuilder>.Instance;
         }
@@ -50,17 +46,6 @@ namespace Taitans.Abp.Cli.ProjectBuilding
                 SourceCodeTypes.Module,
                 args.Version
             );
-
-            var apiKeyResult = await ApiKeyService.GetApiKeyOrNullAsync();
-            if (apiKeyResult?.ApiKey != null)
-            {
-                args.ExtraProperties["api-key"] = apiKeyResult.ApiKey;
-            }
-
-            if (apiKeyResult?.LicenseCode != null)
-            {
-                args.ExtraProperties["license-code"] = apiKeyResult.LicenseCode;
-            }
 
             var context = new ProjectBuildContext(
                 null,
