@@ -4,8 +4,12 @@
         <OutputType>Exe</OutputType>
         <TargetFramework>netcoreapp3.0</TargetFramework>
         <PackAsTool>true</PackAsTool>
-        <ToolCommandName>Tbp</ToolCommandName>
+        <ToolCommandName>tbp</ToolCommandName>
         <PackageOutputPath>./nupkg</PackageOutputPath>
+        <PackageVersion>1.0.0-alpha02</PackageVersion>
+        <Authors>Taitans Studio</Authors>
+        <Copyright>Taitans Studio</Copyright>
+        <Owners>Taitans Studio</Owners>
     </PropertyGroup>
     <ItemGroup>
         <Folder Include="Taitans\" />
