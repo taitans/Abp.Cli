@@ -86,26 +86,28 @@ namespace Taitans.Abp.Cli.ProjectBuilding
 
         private async Task<string> GetLatestSourceCodeVersionAsync(string name, string type)
         {
-            using (var client = new CliHttpClient())
-            {
-                var response = await client.PostAsync(
-                    $"{CliUrls.WwwAbpIo}api/download/{type}/get-version/",
-                    new StringContent(
-                        JsonSerializer.Serialize(
-                            new GetLatestSourceCodeVersionDto { Name = name }
-                        ),
-                        Encoding.UTF8,
-                        MimeTypes.Application.Json
-                    ),
-                    CancellationTokenProvider.Token
-                );
+            //TODO: Create Github Remote Downloading path.
+            //using (var client = new CliHttpClient())
+            //{
+            //    var response = await client.PostAsync(
+            //        $"{CliUrls.WwwAbpIo}api/download/{type}/get-version/",
+            //        new StringContent(
+            //            JsonSerializer.Serialize(
+            //                new GetLatestSourceCodeVersionDto { Name = name }
+            //            ),
+            //            Encoding.UTF8,
+            //            MimeTypes.Application.Json
+            //        ),
+            //        CancellationTokenProvider.Token
+            //    );
 
-                await RemoteServiceExceptionHandler.EnsureSuccessfulHttpResponseAsync(response);
+            //    await RemoteServiceExceptionHandler.EnsureSuccessfulHttpResponseAsync(response);
 
-                var result = await response.Content.ReadAsStringAsync();
+            //    var result = await response.Content.ReadAsStringAsync();
 
-                return JsonSerializer.Deserialize<GetLatestSourceCodeVersionResultDto>(result).Version;
-            }
+            //    return JsonSerializer.Deserialize<GetLatestSourceCodeVersionResultDto>(result).Version;
+            //}
+            return "1.0.2";
         }
 
         private async Task<byte[]> DownloadSourceCodeContentAsync(SourceCodeDownloadInputDto input)

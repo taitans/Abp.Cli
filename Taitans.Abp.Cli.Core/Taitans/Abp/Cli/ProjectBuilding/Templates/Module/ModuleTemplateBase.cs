@@ -25,11 +25,6 @@ namespace Taitans.Abp.Cli.ProjectBuilding.Templates.Module
 
         private void DeleteUnrelatedProjects(ProjectBuildContext context, List<ProjectBuildPipelineStep> steps)
         {
-            if (!context.BuildArgs.ExtraProperties.ContainsKey("no-ui"))
-            {
-                return;
-            }
-
             steps.Add(new RemoveProjectFromSolutionStep(
                 "MyCompanyName.MyProjectName.Web"
             ));
@@ -42,6 +37,11 @@ namespace Taitans.Abp.Cli.ProjectBuilding.Templates.Module
             steps.Add(new RemoveProjectFromSolutionStep(
                 "MyCompanyName.MyProjectName.Web.Unified",
                 projectFolderPath: "/aspnet-core/host/MyCompanyName.MyProjectName.Web.Unified"
+            ));
+
+            steps.Add(new RemoveProjectFromSolutionStep(
+                "MyCompanyName.MyProjectName.IdentityServer",
+                projectFolderPath: "/aspnet-core/host/MyCompanyName.MyProjectName.IdentityServer"
             ));
         }
 
