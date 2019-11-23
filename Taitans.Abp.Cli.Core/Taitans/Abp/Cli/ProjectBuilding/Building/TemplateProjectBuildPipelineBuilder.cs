@@ -1,6 +1,5 @@
 ﻿using System;
 using Taitans.Abp.Cli.ProjectBuilding.Building.Steps;
-using Taitans.Abp.Cli.ProjectBuilding.Templates.App;
 
 namespace Taitans.Abp.Cli.ProjectBuilding.Building
 {
@@ -13,17 +12,17 @@ namespace Taitans.Abp.Cli.ProjectBuilding.Building
         /// <returns></returns>
         public static ProjectBuildPipeline Build(ProjectBuildContext context)
         {
-            var pipeline = new ProjectBuildPipeline(context);
+            var pipeline = new ProjectBuildPipeline(context); // 构建项目步骤管道
 
             pipeline.Steps.Add(new FileEntryListReadStep());
 
             pipeline.Steps.AddRange(context.Template.GetCustomSteps(context));
 
-            pipeline.Steps.Add(new ProjectReferenceReplaceStep());
-            pipeline.Steps.Add(new TemplateCodeDeleteStep());
-            pipeline.Steps.Add(new SolutionRenameStep());
+            pipeline.Steps.Add(new ProjectReferenceReplaceStep()); // 项目引用替换步骤
+            pipeline.Steps.Add(new TemplateCodeDeleteStep());  // 模版代码删除步骤
+            pipeline.Steps.Add(new SolutionRenameStep()); // 方案重命名步骤
 
-            pipeline.Steps.Add(new CreateProjectResultZipStep());
+            pipeline.Steps.Add(new CreateProjectResultZipStep()); // 创建项目输出资源步骤
 
             return pipeline;
         }

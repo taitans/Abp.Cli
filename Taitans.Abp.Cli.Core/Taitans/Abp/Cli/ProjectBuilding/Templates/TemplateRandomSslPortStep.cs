@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 using Taitans.Abp.Cli.ProjectBuilding.Building;
-using Taitans.Abp.Cli.ProjectBuilding.Templates.App;
 using Volo.Abp;
 
 namespace Taitans.Abp.Cli.ProjectBuilding.Templates
@@ -44,28 +43,6 @@ namespace Taitans.Abp.Cli.ProjectBuilding.Templates
                     x.Name.EndsWith("environments/environment.prod.ts", StringComparison.InvariantCultureIgnoreCase))
                 )
                 .ToList();
-
-            if (AppTemplateBase.IsAppTemplate(context.Template.Name))
-            {
-                // no tiered
-                if (launchSettings.Count == 1 &&
-                    launchSettings.First().Name
-                        .Equals("/aspnet-core/src/MyCompanyName.MyProjectName.Web/Properties/launchSettings.json", StringComparison.InvariantCultureIgnoreCase))
-                {
-                    var dbMigrator = appSettings.FirstOrDefault(x =>
-                        x.Name.Equals("/aspnet-core/src/MyCompanyName.MyProjectName.DbMigrator/appsettings.json", StringComparison.InvariantCultureIgnoreCase));
-                    dbMigrator?.SetContent(dbMigrator.Content.Replace("https://localhost:44302", "https://localhost:44303"));
-
-                    var web = appSettings.FirstOrDefault(x =>
-                        x.Name.Equals("/aspnet-core/src/MyCompanyName.MyProjectName.Web/appsettings.json", StringComparison.InvariantCultureIgnoreCase));
-                    web?.SetContent(web.Content.Replace("https://localhost:44301", "https://localhost:44303"));
-
-                    var consoleTestApp = appSettings.FirstOrDefault(x =>
-                        x.Name.Equals("/aspnet-core/test/MyCompanyName.MyProjectName.HttpApi.Client.ConsoleTestApp/appsettings.json", StringComparison.InvariantCultureIgnoreCase));
-                    consoleTestApp?.SetContent(consoleTestApp.Content.Replace("https://localhost:44300", "https://localhost:44303"));
-                    consoleTestApp?.SetContent(consoleTestApp.Content.Replace("https://localhost:44301", "https://localhost:44303"));
-                }
-            }
 
             var excludePorts = new List<string>();
             excludePorts.AddRange(_buildInSslUrls.Select(GetUrlPort).ToList());

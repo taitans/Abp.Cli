@@ -40,29 +40,12 @@ namespace Taitans.Abp.Cli.Commands
             Logger.LogInformation("Creating your project...");
             Logger.LogInformation("Project name: " + commandLineArgs.Target);
 
-            var template = commandLineArgs.Options.GetOrNull(Options.Template.Short, Options.Template.Long);
-            if (template != null)
-            {
-                Logger.LogInformation("Template: " + template);
-            }
-
             var version = commandLineArgs.Options.GetOrNull(Options.Version.Short, Options.Version.Long);
             if (version != null)
             {
                 Logger.LogInformation("Version: " + version);
             }
 
-            var databaseProvider = GetDatabaseProvider(commandLineArgs);
-            if (databaseProvider != DatabaseProvider.NotSpecified)
-            {
-                Logger.LogInformation("Database provider: " + databaseProvider);
-            }
-
-            var uiFramework = GetUiFramework(commandLineArgs);
-            if (uiFramework != UiFramework.NotSpecified)
-            {
-                Logger.LogInformation("UI Framework: " + uiFramework);
-            }
 
             var gitHubLocalRepositoryPath = commandLineArgs.Options.GetOrNull(Options.GitHubLocalRepositoryPath.Long);
             if (gitHubLocalRepositoryPath != null)
@@ -87,10 +70,8 @@ namespace Taitans.Abp.Cli.Commands
             var result = await TemplateProjectBuilder.BuildAsync(
                 new ProjectBuildArgs(
                     SolutionName.Parse(commandLineArgs.Target),
-                    template,
+                    "module",
                     version,
-                    databaseProvider,
-                    uiFramework,
                     gitHubLocalRepositoryPath,
                     commandLineArgs.Options
                 )

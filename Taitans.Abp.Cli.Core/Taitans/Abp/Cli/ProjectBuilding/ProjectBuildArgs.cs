@@ -16,10 +16,6 @@ namespace Taitans.Abp.Cli.ProjectBuilding
         [CanBeNull]
         public string Version { get; set; }
 
-        public DatabaseProvider DatabaseProvider { get; set; }
-
-        public UiFramework UiFramework { get; set; }
-
         [CanBeNull]
         public string AbpGitHubLocalRepositoryPath { get; set; }
 
@@ -30,16 +26,12 @@ namespace Taitans.Abp.Cli.ProjectBuilding
             [NotNull] SolutionName solutionName, 
             [CanBeNull] string templateName = null,
             [CanBeNull] string version = null,
-            DatabaseProvider databaseProvider = DatabaseProvider.NotSpecified,
-            UiFramework uiFramework = UiFramework.NotSpecified,
             [CanBeNull] string abpGitHubLocalRepositoryPath = null,
             Dictionary<string, string> extraProperties = null)
         {
             SolutionName = Check.NotNull(solutionName, nameof(solutionName));
             TemplateName = templateName;
             Version = version;
-            DatabaseProvider = databaseProvider;
-            UiFramework = uiFramework;
             AbpGitHubLocalRepositoryPath = abpGitHubLocalRepositoryPath;
             ExtraProperties = extraProperties ?? new Dictionary<string, string>();
         }

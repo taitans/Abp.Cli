@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Taitans.Abp.Cli.Commands;
 using Taitans.Abp.Cli.ProjectBuilding.Analyticses;
 using Taitans.Abp.Cli.ProjectBuilding.Building;
+using Taitans.Abp.Cli.ProjectBuilding.Templates.MvcModule;
 using Volo.Abp.DependencyInjection;
 using Volo.Abp.Json;
 
@@ -17,19 +18,16 @@ namespace Taitans.Abp.Cli.ProjectBuilding
         public ILogger<TemplateProjectBuilder> Logger { get; set; }
 
         protected ISourceCodeStore SourceCodeStore { get; }
-        protected ITemplateInfoProvider TemplateInfoProvider { get; }
         protected ICliAnalyticsCollect CliAnalyticsCollect { get; }
         protected AbpCliOptions Options { get; }
         protected IJsonSerializer JsonSerializer { get; }
 
-        public TemplateProjectBuilder(ISourceCodeStore sourceCodeStore, 
-            ITemplateInfoProvider templateInfoProvider,
+        public TemplateProjectBuilder(ISourceCodeStore sourceCodeStore,
             ICliAnalyticsCollect cliAnalyticsCollect, 
             IOptions<AbpCliOptions> options,
             IJsonSerializer jsonSerializer)
         {
             SourceCodeStore = sourceCodeStore;
-            TemplateInfoProvider = templateInfoProvider;
             CliAnalyticsCollect = cliAnalyticsCollect;
             Options = options.Value;
             JsonSerializer = jsonSerializer;
@@ -39,7 +37,7 @@ namespace Taitans.Abp.Cli.ProjectBuilding
         
         public async Task<ProjectBuildResult> BuildAsync(ProjectBuildArgs args)
         {
-            var templateInfo = GetTemplateInfo(args);
+            var templateInfo = GetTemplateInfo();
 
             NormalizeArgs(args, templateInfo);
 
@@ -83,9 +81,7 @@ namespace Taitans.Abp.Cli.ProjectBuilding
             {
                 Tool = Options.ToolName,
                 Command = args.ExtraProperties.ContainsKey(CliConsts.Command) ? args.ExtraProperties[CliConsts.Command] : "",
-                DatabaseProvider = args.DatabaseProvider.ToProviderName(),
                 IsTiered = args.ExtraProperties.ContainsKey("tiered"),
-                UiFramework = args.UiFramework.ToFrameworkName(),
                 Options = JsonSerializer.Serialize(options),
                 ProjectName = args.SolutionName.FullName,
                 TemplateName = args.TemplateName,
@@ -101,34 +97,11 @@ namespace Taitans.Abp.Cli.ProjectBuilding
             {
                 args.TemplateName = templateInfo.Name;
             }
-
-            if (args.DatabaseProvider == DatabaseProvider.NotSpecified)
-            {
-                if (templateInfo.DefaultDatabaseProvider != DatabaseProvider.NotSpecified)
-                {
-                    args.DatabaseProvider = templateInfo.DefaultDatabaseProvider;
-                }
-            }
-
-            if (args.UiFramework == UiFramework.NotSpecified)
-            {
-                if (templateInfo.DefaultUiFramework != UiFramework.NotSpecified)
-                {
-                    args.UiFramework = templateInfo.DefaultUiFramework;
-                }
-            }
         }
 
-        private TemplateInfo GetTemplateInfo(ProjectBuildArgs args)
+        private TemplateInfo GetTemplateInfo()
         {
-            if (args.TemplateName.IsNullOrWhiteSpace())
-            {
-                return TemplateInfoProvider.GetDefault();
-            }
-            else
-            {
-                return TemplateInfoProvider.Get(args.TemplateName);
-            }
+            return new ModuleTemplate();
         }
     }
 }

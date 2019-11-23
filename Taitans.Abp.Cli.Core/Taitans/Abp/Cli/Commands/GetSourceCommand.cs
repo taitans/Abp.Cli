@@ -74,8 +74,6 @@ namespace Taitans.Abp.Cli.Commands
                     SolutionName.Parse(commandLineArgs.Target),
                     commandLineArgs.Target,
                     version,
-                    DatabaseProvider.NotSpecified,
-                    UiFramework.NotSpecified,
                     gitHubLocalRepositoryPath,
                     commandLineArgs.Options
                 )
