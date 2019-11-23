@@ -23,11 +23,6 @@ namespace Taitans.Abp.Cli.ProjectBuilding.Building
             pipeline.Steps.Add(new TemplateCodeDeleteStep());
             pipeline.Steps.Add(new SolutionRenameStep());
 
-            if (context.Template.Name == AppProTemplate.TemplateName)
-            {
-                pipeline.Steps.Add(new LicenseCodeReplaceStep());
-            }
-
             pipeline.Steps.Add(new CreateProjectResultZipStep());
 
             return pipeline;
