@@ -70,19 +70,6 @@ namespace Taitans.Abp.Cli.ProjectBuilding
                             !x.Key.Equals(NewCommand.Options.Version.Short, StringComparison.InvariantCultureIgnoreCase))
                 .Select(x => x.Key).ToList();
 
-            await CliAnalyticsCollect.CollectAsync(new CliAnalyticsCollectInputDto
-            {
-                Tool = Options.ToolName,
-                Command = args.ExtraProperties.ContainsKey(CliConsts.Command) ? args.ExtraProperties[CliConsts.Command] : "",
-                DatabaseProvider = null,
-                IsTiered = null,
-                UiFramework = null,
-                Options = JsonSerializer.Serialize(options),
-                ProjectName = null,
-                TemplateName = args.TemplateName,
-                TemplateVersion = templateFile.Version
-            });
-
             return new ProjectBuildResult(context.Result.ZipContent, args.TemplateName);
         }
 
